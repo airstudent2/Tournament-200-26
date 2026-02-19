@@ -1,0 +1,372 @@
+/*
+ * Base styles for the Esports Tournament web application.
+ * This file defines the global color palette and core UI components for both
+ * the user and admin panels. The theme uses a light look inspired by
+ * modern mobile-first PWAs with soft shadows, rounded corners, and subtle
+ * animations. Colors and layout units are defined via CSS variables so
+ * adjustments can be centralized.
+ */
+
+:root {
+  --bg: #F6F7FB;
+  --card: #FFFFFF;
+  --border: #E5E7EB;
+  --text: #111827;
+  --muted: #6B7280;
+  --primary: #2563EB;
+  --success: #16A34A;
+  --danger: #DC2626;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Hind Siliguri', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* App bar (top navigation for user) */
+.app-bar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--card);
+  padding: 12px 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  z-index: 10;
+  border-bottom: 1px solid var(--border);
+}
+.app-bar h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Bottom navigation for user panel */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--card);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+  z-index: 10;
+}
+.bottom-nav button {
+  background: none;
+  border: none;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 10px;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+.bottom-nav button.active {
+  color: var(--primary);
+}
+.bottom-nav button i {
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+/* Generic page container */
+.page {
+  display: none;
+  padding: 16px;
+  padding-bottom: 80px; /* account for bottom nav */
+}
+.page.active {
+  display: block;
+}
+
+/* Card component used throughout the app */
+.card {
+  background-color: var(--card);
+  border-radius: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+}
+
+/* Skeleton loading placeholder */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 0%, #e6e6e6 50%, #f0f0f0 100%);
+  border-radius: 4px;
+  height: 20px;
+  margin-bottom: 8px;
+  animation: shimmer 1.2s infinite;
+  background-size: 200% 100%;
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--card);
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 999;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-10px);
+  pointer-events: auto;
+}
+
+/* Bottom sheet modal for filters and confirmations */
+.bottom-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: -100%;
+  background-color: var(--card);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
+  transition: bottom 0.3s;
+  max-height: 80%;
+  overflow-y: auto;
+  padding: 16px;
+  z-index: 99;
+}
+.bottom-sheet.show {
+  bottom: 0;
+}
+.bottom-sheet .sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.bottom-sheet .sheet-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+.bottom-sheet-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+/* Admin specific styles */
+.admin-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--primary);
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+.admin-header h1 {
+  margin: 0;
+  font-weight: 600;
+}
+.admin-header button {
+  background: var(--danger);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.admin-nav {
+  background-color: var(--card);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px;
+  overflow-x: auto;
+}
+.admin-nav button {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.admin-nav button.active {
+  background-color: var(--primary);
+  color: white;
+}
+.admin-page {
+  display: none;
+  padding: 16px;
+}
+.admin-page.active {
+  display: block;
+}
+
+/* Modal overlay for forms and confirmations */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.modal-overlay.show {
+  display: flex;
+}
+.modal {
+  background-color: var(--card);
+  border-radius: 16px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+}
+.modal h2 {
+  margin-top: 0;
+  font-weight: 600;
+}
+
+/* Buttons */
+button.primary {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+button.success {
+  background-color: var(--success);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+button.danger {
+  background-color: var(--danger);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Form elements */
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: var(--bg);
+  color: var(--text);
+  box-sizing: border-box;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Category chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.category-chip {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--text);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.category-chip:hover {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* Tournament card specific tweaks */
+.tournament-card h3 {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+.tournament-card p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+.tournament-card button {
+  margin-top: 8px;
+}
+
+/* Simple carousel styling for slider */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.carousel .slide {
+  display: none;
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  position: relative;
+}
+.carousel .slide .slide-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
+  color: white;
+  padding: 8px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.carousel .slide .slide-content h3 {
+  margin: 0;
+  font-size: 16px;
+}
