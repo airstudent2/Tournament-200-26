@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esports Tournament App - User</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- App Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Top App Bar -->
+  <header class="app-bar">
+    <h1 id="app-title">Home</h1>
+  </header>
+
+  <div id="app">
+    <!-- Home Page -->
+    <section id="homePage" class="page active">
+      <!-- News Slider -->
+      <div id="sliderContainer" class="carousel"></div>
+      <!-- Upcoming Event Card -->
+      <div id="upcomingCard" class="card" style="display:none;">
+        <h3></h3>
+        <p></p>
+        <button class="primary">View</button>
+      </div>
+      <!-- Category Chips -->
+      <div id="categoriesContainer" class="chips"></div>
+    </section>
+
+    <!-- Tournaments Page -->
+    <section id="tournamentsPage" class="page">
+      <div id="tournamentsList"></div>
+    </section>
+
+    <!-- Wallet Page -->
+    <section id="walletPage" class="page">
+      <h3>Your Balance: <span id="walletBalance">₹0</span></h3>
+      <div class="card">
+        <h4>Withdraw</h4>
+        <input type="number" id="withdrawAmount" placeholder="Amount">
+        <input type="text" id="withdrawMethod" placeholder="Method (e.g. UPI)">
+        <input type="text" id="withdrawAccount" placeholder="Account/UPI ID">
+        <button class="primary" onclick="requestWithdrawal()">Request Withdraw</button>
+      </div>
+      <h4>History</h4>
+      <div id="walletHistory"></div>
+    </section>
+
+    <!-- Profile Page -->
+    <section id="profilePage" class="page">
+      <h3 id="userNameDisplay"></h3>
+      <button class="primary" onclick="UI.showModal('profileSetupModal')">Edit Profile</button>
+    </section>
+  </div>
+
+  <!-- Profile Setup Modal -->
+  <div id="profileSetupModal" class="modal-overlay">
+    <div class="modal">
+      <h2>Set up your profile</h2>
+      <input type="text" id="setupName" placeholder="Name">
+      <input type="text" id="setupPhone" placeholder="Phone">
+      <input type="text" id="setupIgn" placeholder="In-game Name/UID">
+      <button class="primary" onclick="saveUserProfile()">Save</button>
+      <button class="danger" onclick="UI.closeModal('profileSetupModal')">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <button data-target="homePage" data-title="Home" class="active"><i class="fas fa-home"></i><span>Home</span></button>
+    <button data-target="tournamentsPage" data-title="Tournaments"><i class="fas fa-trophy"></i><span>Tournaments</span></button>
+    <button data-target="walletPage" data-title="Wallet"><i class="fas fa-wallet"></i><span>Wallet</span></button>
+    <button data-target="profilePage" data-title="Profile"><i class="fas fa-user"></i><span>Profile</span></button>
+  </nav>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <!-- App Scripts -->
+  <script src="js/firebase-init.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/user.js"></script>
+</body>
+</html>
