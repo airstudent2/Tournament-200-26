@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esports Tournament App - Admin</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- App Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="admin-header">
+    <h1 id="adminTitle">Dashboard</h1>
+    <button class="danger" onclick="Auth.signOut()">Sign out</button>
+  </header>
+
+  <!-- Login Page -->
+  <div id="adminLoginPage">
+    <h2>Admin Login</h2>
+    <form id="adminLoginForm">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button class="primary" type="submit">Login</button>
+    </form>
+  </div>
+
+  <!-- Admin App -->
+  <div id="adminApp" style="display:none;">
+    <nav class="admin-nav">
+      <button data-target="adminDashboardPage" data-title="Dashboard" class="active">Dashboard</button>
+      <button data-target="adminTournamentsPage" data-title="Tournaments">Tournaments</button>
+      <button data-target="adminFinancialPage" data-title="Withdrawals">Financials</button>
+      <button data-target="adminUsersPage" data-title="Users">Users</button>
+      <button data-target="adminSettingsPage" data-title="Settings">Settings</button>
+    </nav>
+    <section id="adminDashboardPage" class="admin-page active">
+      <h3>Overview</h3>
+      <div class="card">
+        <p>Total Users: <span id="dashUsersCount">0</span></p>
+        <p>Active Tournaments: <span id="dashActiveTournaments">0</span></p>
+        <p>Pending Withdrawals: <span id="dashPendingWithdrawals">0</span></p>
+      </div>
+    </section>
+    <section id="adminTournamentsPage" class="admin-page">
+      <h3>Manage Tournaments</h3>
+      <div id="adminTournamentsList"></div>
+    </section>
+    <section id="adminFinancialPage" class="admin-page">
+      <h3>Withdrawals</h3>
+      <div id="adminWithdrawalsList"></div>
+    </section>
+    <section id="adminUsersPage" class="admin-page">
+      <h3>Users</h3>
+      <div id="adminUsersList"></div>
+    </section>
+    <section id="adminSettingsPage" class="admin-page">
+      <h3>App Settings</h3>
+      <form id="settingsForm">
+        <label>Min Withdraw (₹)
+          <input type="number" name="minWithdraw">
+        </label>
+        <label>Withdraw Fee %
+          <input type="number" name="withdrawFeePercent">
+        </label>
+        <label>Maintenance Mode
+          <input type="checkbox" name="maintenanceMode">
+        </label>
+        <label>Join Cooldown (seconds)
+          <input type="number" name="joinCooldownSec">
+        </label>
+        <label>Support Auto-Reply
+          <input type="text" name="supportAutoMsg">
+        </label>
+        <button class="primary" type="submit">Save Settings</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <!-- App Scripts -->
+  <script src="js/firebase-init.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
